@@ -1,0 +1,17 @@
+---- plain-text-archive: DirectoryTwo
+-- plain-text-file: one.txt
+A simple text containing 1.
+-- plain-text-file: sub_directory/two.txt
+Simlar to a two.txt you may have seen before, only this is in a nested directory! Yes I know
+
+and here's that surprise line break again.
+
+Maybe even a few more.
+
+
+
+
+
+
+There.
+
