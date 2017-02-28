@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import com.aelchemy.plaintextarchiver.archive.Archiver;
+import com.aelchemy.plaintextarchiver.extract.Extractor;
 import com.aelchemy.plaintextarchiver.file.DirectoryCrawler;
 
 /**
@@ -16,16 +17,37 @@ import com.aelchemy.plaintextarchiver.file.DirectoryCrawler;
  */
 public class Main {
 
+	private static final String MODE_ARCHIVE = "archive";
+	private static final String MODE_EXTRACT = "extract";
+
+	/**
+	 * Main method for command line execution. Supports both archiving and extraction.
+	 * <p>
+	 * <b>Archiving</b>: archive archiveDirectory outputDirectory <br>
+	 * <b>Extracting</b>: extract archiveFile outputDirectory
+	 * 
+	 * @param args Command line arguments to control the flow of the application.
+	 * @throws IOException
+	 */
 	public static void main(final String[] args) throws IOException {
-		if (args.length < 2) {
-			System.err.println("Please provide a root directory for archiving and an output file to save it to.");
+		if (args.length < 3) {
+			System.err.println("Please provide a mode (" + MODE_ARCHIVE + " or " + MODE_EXTRACT + "), an archive file/directory and an output directory.");
 			return;
 		}
 
-		File rootDirectory = new File(args[0]);
-		File outputDirectory = new File(args[1]);
+		String mode = args[0];
 
-		FileUtils.writeStringToFile(outputDirectory, Archiver.createArchive(rootDirectory.getName() + ".pta", DirectoryCrawler.crawlDirectory(rootDirectory)), "UTF-8");
+		if (mode.equals(MODE_ARCHIVE)) {
+			File rootDirectory = new File(args[1]);
+			File outputDirectory = new File(args[2]);
+
+			FileUtils.writeStringToFile(outputDirectory, Archiver.createArchive(rootDirectory.getName() + ".pta", DirectoryCrawler.crawlDirectory(rootDirectory)), "UTF-8");
+		} else if (mode.equals(MODE_EXTRACT)) {
+			File archiveFile = new File(args[1]);
+			File outputDirectory = new File(args[2]);
+
+			Extractor.extractArchive(archiveFile, outputDirectory);
+		}
 	}
 
 }

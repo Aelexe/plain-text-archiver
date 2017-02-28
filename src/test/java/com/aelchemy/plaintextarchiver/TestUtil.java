@@ -1,12 +1,16 @@
 package com.aelchemy.plaintextarchiver;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+
+import com.aelchemy.plaintextarchiver.file.FileContent;
 
 /**
  * {@link TestUtil} contains common methods used in the unit tests.
@@ -57,6 +61,16 @@ public class TestUtil {
 	 */
 	public static String replaceAllLineBreaks(final String string) {
 		return string.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+	}
+
+	public static void assertListContains(final String fileName, final String fileContents, final List<FileContent> files) {
+		for (FileContent file : files) {
+			if (file.getFileName().equals(fileName)) {
+				assertEquals(fileContents, file.getFileContents());
+				return;
+			}
+		}
+		fail("File list did not contain file: " + fileName + " with matching file content.");
 	}
 
 }

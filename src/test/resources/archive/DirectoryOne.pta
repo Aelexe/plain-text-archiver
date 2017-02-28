@@ -1,7 +1,9 @@
 ---- plain-text-archive: DirectoryOne
 -- plain-text-file: one.txt
 A simple text containing 1.
+-- plain-text-file-end
 -- plain-text-file: two.txt
 A marginally more complex text because I'm going to throw a new line into the mix when you least
 
 expect it.
+-- plain-text-file-end

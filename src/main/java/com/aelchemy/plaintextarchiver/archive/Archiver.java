@@ -31,7 +31,7 @@ public class Archiver {
 			appendFile(file, archive);
 		}
 
-		return archive.toString();
+		return files.size() > 0 ? archive.substring(0, archive.length() - 1) : archive.toString();
 	}
 
 	private static void appendArchiveName(final String archiveName, final StringBuilder archive) {
@@ -41,7 +41,7 @@ public class Archiver {
 	private static void appendFile(final FileContent file, final StringBuilder archive) {
 		archive.append("-- plain-text-file: " + file.getFileName() + "\n");
 		archive.append(file.getFileContents());
-		archive.append("\n");
+		archive.append("\n-- plain-text-file-end\n");
 	}
 
 }
