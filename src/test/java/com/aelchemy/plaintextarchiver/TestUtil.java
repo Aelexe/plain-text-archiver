@@ -66,7 +66,7 @@ public class TestUtil {
 	public static void assertListContains(final String fileName, final String fileContents, final List<FileContent> files) {
 		for (FileContent file : files) {
 			if (file.getFileName().equals(fileName)) {
-				assertEquals(fileContents, file.getFileContents());
+				assertStringEquals(fileContents, file.getFileContents());
 				return;
 			}
 		}
